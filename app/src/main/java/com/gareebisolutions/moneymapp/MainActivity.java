@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Cursor res= myDb.getAllData();
+                        Cursor res= myDb.getData();
                         if(res.getCount()==0){
                             showMessage("Error","Nodatafound");
                             return;

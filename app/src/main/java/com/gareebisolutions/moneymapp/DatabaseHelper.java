@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "Student.db";
+    public static final String DATABASE_NAME = "Money.db";
     public static final String TABLE_NAME = "student_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "NAME";
@@ -22,11 +22,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
+        SQLiteDatabase db = this.getWritableDatabase();
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,NAME TEXT,SURNAME TEXT,MARKS INTEGER)");
+        String query1="CREATE TABLE IF NOT EXISTS `websiteusers` (\n" +
+                " `email` varchar(255) NOT NULL\n" +
+                ");";
+        String query2 ="CREATE TABLE IF NOT EXISTS `budget` (\n" +
+                "  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+                "  `budget` int(20) NOT NULL,\n" +
+                "  `Saving` int(11) DEFAULT NULL,\n" +
+                "   `total` int(11) DEFAULT NULL\n" +
+                "\n" +
+                ");";
+        String query3="CREATE TABLE IF NOT EXISTS `expense` (\n" +
+                "  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+                "  `category` int(20) NOT NULL,\n" +
+                "  `expense` int(11) DEFAULT NULL\n" +
+                ");";
+        String query4="CREATE TABLE IF NOT EXISTS `income` (\n" +
+                "  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+                "  `category` int(20) NOT NULL,\n" +
+                "  `income` int(11) DEFAULT NULL\n" +
+                ");";
+        db.execSQL(query1);
+        db.execSQL(query2);
+        db.execSQL(query3);
+        db.execSQL(query4);
     }
 
     @Override
@@ -35,23 +60,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String name,String surname,String marks) {
+    public boolean insertData(String type,String date,Integer category,Integer value) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2,name);
-        contentValues.put(COL_3,surname);
-        contentValues.put(COL_4, marks);
-        long result = db.insert(TABLE_NAME,null ,contentValues);
+        contentValues.put("date",date);
+        contentValues.put("category",category);
+        contentValues.put(type,value);
+        long result = db.insert(type,null ,contentValues);
         if(result == -1)
             return false;
         else
             return true;
     }
 
-    public Cursor getAllData()
+    public Cursor getData(String type,String date1,String date2)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
+        Cursor res = db.rawQuery("select * from " + type+"where date between '"+date1+"' AND '"+date2 +"'", null);
         return res;
     }
 }
