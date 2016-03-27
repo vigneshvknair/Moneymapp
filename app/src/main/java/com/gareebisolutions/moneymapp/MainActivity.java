@@ -1,24 +1,22 @@
 package com.gareebisolutions.moneymapp;
 
 
-
-        import android.app.AlertDialog;
-        import android.database.Cursor;
-        import android.os.Bundle;
-        import android.support.v7.app.AppCompatActivity;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.Toast;
+import android.app.AlertDialog;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
-    EditText editName, editSurname, editMarks;
+    EditText editExpense,editIncome;
     Button btnAddData;
-    Button btnViewAll;
+    Button btnViewExpense;
+    Button btnViewIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +24,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
 
-        editName = (EditText) findViewById(R.id.editText_name);
-        editSurname = (EditText) findViewById(R.id.editText_surname);
-        editMarks = (EditText) findViewById(R.id.editText_Marks);
+        editExpense = (EditText) findViewById(R.id.editExpense);
+        editIncome = (EditText) findViewById(R.id.editIncome);
         btnAddData = (Button) findViewById(R.id.button_add);
-        btnViewAll = (Button) findViewById(R.id.viewAll);
-        AddData();
+        btnViewExpense = (Button) findViewById(R.id.viewExpense);
+        btnViewIncome = (Button) findViewById(R.id.viewIncome);
+
+        AddExpense();
         viewAll();
     }
 
-    public void AddData() {
+    public void AddExpense() {
         btnAddData.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = myDb.insertData(editName.getText().toString(),
-                                editSurname.getText().toString(),
-                                editMarks.getText().toString());
+                        boolean isInserted = myDb.insertData("expense",
+                                editDate.getText().toString(),
+                                editExpense.getText().toString());
                         if (isInserted = true)
                             Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
                         else
