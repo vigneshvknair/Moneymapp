@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Data"
-        android:id="@+id/button_add"
+        android:id="@+id/buttonExpense"
         android:layout_below="@+id/editText_Marks"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:text="View All"
         android:id="@+id/viewAll"
-        android:layout_alignTop="@+id/button_add"
+        android:layout_alignTop="@+id/buttonExpense"
         android:layout_centerHorizontal="true" />
 
     <Button

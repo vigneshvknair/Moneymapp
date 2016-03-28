@@ -2,7 +2,7 @@ package com.gareebisolutions.moneymapp;
 
 
 import android.app.AlertDialog;
-import android.database.Cursor;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
-    EditText editExpense,editIncome;
+    EditText editAmount,editIncome;
     Button btnAddData;
-    Button btnViewExpense;
+    Button btnExpense;
     Button btnViewIncome;
 
     @Override
@@ -24,14 +24,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
 
-        editExpense = (EditText) findViewById(R.id.editExpense);
-        editIncome = (EditText) findViewById(R.id.editIncome);
-        btnAddData = (Button) findViewById(R.id.button_add);
-        btnViewExpense = (Button) findViewById(R.id.viewExpense);
-        btnViewIncome = (Button) findViewById(R.id.viewIncome);
+       // editAmount = (EditText) findViewById(R.id.editAmount);
+       // editIncome = (EditText) findViewById(R.id.editIncome);
+        btnAddData = (Button) findViewById(R.id.buttonExpense);
+        btnExpense = (Button) findViewById(R.id.buttonExpense);
+       // btnViewExpense = (Button) findViewById(R.id.viewExpense);
+        //btnViewIncome = (Button) findViewById(R.id.viewIncome);
 
         AddExpense();
-        viewAll();
+        //viewAll();
     }
 
     public void AddExpense() {
@@ -39,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = myDb.insertData("expense",
-                                editDate.getText().toString(),
-                                editExpense.getText().toString());
+                        boolean isInserted = myDb.insertData("expense", "2011-10-05", 2, Integer.parseInt(editAmount.getText().toString()));
                         if (isInserted = true)
                             Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
                         else
@@ -51,7 +50,20 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    public void viewAll(){
+    public void gotoExpense(){
+        btnExpense.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getApplicationContext(),Expense.class);
+                        startActivity(i);
+
+                    }
+                }
+        );
+    }
+
+    /*public void viewAll(){
         btnViewAll.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -75,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
     }
-
+*/
     public void showMessage(String title,String Message)
 
     {
