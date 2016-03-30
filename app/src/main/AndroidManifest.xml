@@ -16,7 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Expense" />
+        <activity android:name=".Expense"
+            android:label="@string/Expenses">
+
+            <intent-filter>
+                <action android:name="com.gareebisolutions.Expense" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
 
 
     </application>

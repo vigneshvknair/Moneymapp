@@ -13,9 +13,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
+    Expense ex;
     EditText editAmount,editIncome;
     Button btnAddData;
-    Button btnExpense;
+    Button btnGoto;
     Button btnViewIncome;
 
     @Override
@@ -26,12 +27,13 @@ public class MainActivity extends AppCompatActivity {
 
        // editAmount = (EditText) findViewById(R.id.editAmount);
        // editIncome = (EditText) findViewById(R.id.editIncome);
-        btnAddData = (Button) findViewById(R.id.buttonExpense);
-        btnExpense = (Button) findViewById(R.id.buttonExpense);
+        btnAddData = (Button) findViewById(R.id.updateBtn);
+        btnGoto = (Button) findViewById(R.id.buttonshift);
        // btnViewExpense = (Button) findViewById(R.id.viewExpense);
         //btnViewIncome = (Button) findViewById(R.id.viewIncome);
 
         AddExpense();
+        gotoExpense();
         //viewAll();
     }
 
@@ -51,10 +53,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gotoExpense(){
-        btnExpense.setOnClickListener(
+        btnGoto.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         Intent i = new Intent(getApplicationContext(),Expense.class);
                         startActivity(i);
 

@@ -7,6 +7,7 @@ package com.gareebisolutions.moneymapp;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,7 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 
-public class Expense extends MainActivity implements
+public class Expense extends AppCompatActivity implements
         TimePickerDialog.OnTimeSetListener,
         DatePickerDialog.OnDateSetListener
 {
@@ -28,19 +29,22 @@ public class Expense extends MainActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.datetime);
 
         // Find our View instances
-        timeTextView = (TextView)findViewById(R.id.time_textview);
-        dateTextView = (TextView)findViewById(R.id.date_textview);
-        Button timeButton = (Button)findViewById(R.id.time_button);
-        Button dateButton = (Button)findViewById(R.id.date_button);
+        timeTextView = (TextView) findViewById(R.id.time_textview);
+        dateTextView = (TextView) findViewById(R.id.date_textview);
+        buttonreact();
 
         // check if picker mode is specified in Style.xml
 
-
+    }
         // Show a timepicker when the timeButton is clicked
-        timeButton.setOnClickListener(new View.OnClickListener() {
+        public void buttonreact()
+{
+    Button timeButton = (Button) findViewById(R.id.time_button);
+    Button dateButton = (Button) findViewById(R.id.date_button);
+    timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
@@ -53,7 +57,7 @@ public class Expense extends MainActivity implements
                 tpd.vibrate(true);
                 tpd.dismissOnPause(true);
                // tpd.enableSeconds(enableSeconds.isChecked());
-                    tpd.setAccentColor(Color.parseColor("#9C27B0"));
+                    tpd.setAccentColor(Color.parseColor("#64B5F6"));
 
                     tpd.setTitle("TimePicker");
 
@@ -87,7 +91,7 @@ public class Expense extends MainActivity implements
                 dpd.vibrate(true);
                 dpd.dismissOnPause(true);
                 // tpd.enableSeconds(enableSeconds.isChecked());
-                dpd.setAccentColor(Color.parseColor("#9C27B0"));
+                dpd.setAccentColor(Color.parseColor("#64B5F6"));
 
                 dpd.setTitle("TimePicker");
 
@@ -140,4 +144,6 @@ public class Expense extends MainActivity implements
         String date = "You picked the following date: "+dayOfMonth+"/"+(++monthOfYear)+"/"+year;
         dateTextView.setText(date);
     }
+
+
 }
