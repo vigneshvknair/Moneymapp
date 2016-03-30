@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
@@ -20,130 +22,112 @@ import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import java.util.Calendar;
 
 public class Expense extends AppCompatActivity implements
-        TimePickerDialog.OnTimeSetListener,
         DatePickerDialog.OnDateSetListener
 {
-
-    private TextView timeTextView;
+    MainActivity task;
+    DatabaseHelper myDb;
     private TextView dateTextView;
+    public Button expenseAdd;
+    public EditText Amount;
+    String date="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.datetime);
+        myDb = new DatabaseHelper(this);
+
 
         // Find our View instances
-        timeTextView = (TextView) findViewById(R.id.time_textview);
         dateTextView = (TextView) findViewById(R.id.date_textview);
-        buttonreact();
-
-        // check if picker mode is specified in Style.xml
-
-    }
-        // Show a timepicker when the timeButton is clicked
-        public void buttonreact()
-{
-    Button timeButton = (Button) findViewById(R.id.time_button);
-    Button dateButton = (Button) findViewById(R.id.date_button);
-    timeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                TimePickerDialog tpd = TimePickerDialog.newInstance(
-                        Expense.this,
-                        now.get(Calendar.HOUR_OF_DAY),
-                        now.get(Calendar.MINUTE),
-                        true
-                    );
-                tpd.vibrate(true);
-                tpd.dismissOnPause(true);
-               // tpd.enableSeconds(enableSeconds.isChecked());
-                    tpd.setAccentColor(Color.parseColor("#64B5F6"));
-
-                    tpd.setTitle("TimePicker");
-
-                   // tpd.setTimeInterval(2, 5, 10);
-
-                tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        Log.d("TimePicker", "Dialog was cancelled");
-                    }
-                });
-                tpd.show(getFragmentManager(), "Timepickerdialog");
-            }
-        });
+        expenseAdd = (Button) findViewById(R.id.expenseAdd);
+        Button dateButton = (Button) findViewById(R.id.date_button);
+        Amount=(EditText) findViewById(R.id.editAmt);
 
         // Show a datepicker when the dateButton is clicked
+        assert dateButton != null;
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
                 DatePickerDialog dpd = DatePickerDialog.newInstance(
                         Expense.this,
-                        now.get(Calendar.YEAR),
+                        2016,
                         now.get(Calendar.MONTH),
                         now.get(Calendar.DAY_OF_MONTH)
                 );
-
-                dpd.vibrate(true);
-                //dpd.dismissOnPause(dismissDate.isChecked());
+                dpd.setThemeDark(true);
+               // dpd.vibrate(vibrateDate.isChecked());
+                //dpd.dismissOnPause(true);
                 //dpd.showYearPickerFirst(showYearFirst.isChecked());
-                dpd.vibrate(true);
-                dpd.dismissOnPause(true);
-                // tpd.enableSeconds(enableSeconds.isChecked());
-                dpd.setAccentColor(Color.parseColor("#64B5F6"));
 
-                dpd.setTitle("TimePicker");
+                    dpd.setAccentColor(Color.parseColor("#26c6da"));
 
-                // tpd.setTimeInterval(2, 5, 10);
-/*
-                if (limitDates.isChecked()) {
-                    Calendar[] dates = new Calendar[13];
-                    for(int i = -6; i <= 6; i++) {
-                        Calendar date = Calendar.getInstance();
-                        date.add(Calendar.MONTH, i);
-                        dates[i+6] = date;
-                    }
-                    dpd.setSelectableDays(dates);
-                }
-                if (highlightDates.isChecked()) {
-                    Calendar[] dates = new Calendar[13];
-                    for(int i = -6; i <= 6; i++) {
-                        Calendar date = Calendar.getInstance();
-                        date.add(Calendar.WEEK_OF_YEAR, i);
-                        dates[i+6] = date;
-                    }
-                    dpd.setHighlightedDays(dates);
-                }*/
+
+                dpd.setTitle("DatePicker Title");
                 dpd.show(getFragmentManager(), "Datepickerdialog");
             }
         });
     }
-
-    @Override
+    /*
     public void onResume() {
         super.onResume();
-        TimePickerDialog tpd = (TimePickerDialog) getFragmentManager().findFragmentByTag("Timepickerdialog");
         DatePickerDialog dpd = (DatePickerDialog) getFragmentManager().findFragmentByTag("Datepickerdialog");
 
-        if(tpd != null) tpd.setOnTimeSetListener(this);
         if(dpd != null) dpd.setOnDateSetListener(this);
-    }
+    }*/
 
-    @Override
-    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
-        String hourString = hourOfDay < 10 ? "0"+hourOfDay : ""+hourOfDay;
-        String minuteString = minute < 10 ? "0"+minute : ""+minute;
-        String secondString = second < 10 ? "0"+second : ""+second;
-        String time = "You picked the following time: "+hourString+"h"+minuteString+"m"+secondString+"s";
-        timeTextView.setText(time);
-    }
+
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "You picked the following date: "+dayOfMonth+"/"+(++monthOfYear)+"/"+year;
+        monthOfYear++;
+        if(monthOfYear <10) {
+            date = year + "-0" + (monthOfYear);
+            if(dayOfMonth < 10)
+            {
+                date = date +"-0" + dayOfMonth + " 00:00:00";
+            }
+            else
+            {
+                date = date +"-" + dayOfMonth + " 00:00:00";
+            }
+        }
+        else if(dayOfMonth<10)
+        {
+            date = year + "-" + (monthOfYear)+"-0" + dayOfMonth + " 00:00:00";
+        }
+        else
+        {
+            date = year + "-" + (monthOfYear)+"-" + dayOfMonth + " 00:00:00";
+        }
+
         dateTextView.setText(date);
+
     }
 
 
+    public void submit()
+    {
+        expenseAdd.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String amt = Amount.getText().toString();
+                        if(amt.matches("") || date.matches(""))
+                        {
+                            Toast.makeText(Expense.this, "All the data is not entered!", Toast.LENGTH_LONG).show();
+                        }
+                        else {
+                            boolean isInserted = myDb.insertData("expense",date, 88777, Integer.parseInt(amt));
+                            if (isInserted)
+                                Toast.makeText(Expense.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(Expense.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+        );
+    }
+
 }
+

@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by ProgrammingKnowledge on 4/3/2015.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
+
     public static final String DATABASE_NAME = "Money.db";
    // public static final String TABLE_NAME = "student_table";
 
@@ -28,19 +29,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 " `email` varchar(255) NOT NULL\n" +
                 ");";
         String query2 ="CREATE TABLE IF NOT EXISTS `budget` (\n" +
-                "  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+                "  `date` date NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
                 "  `budget` int(20) NOT NULL,\n" +
                 "  `Saving` int(11) DEFAULT NULL,\n" +
                 "   `total` int(11) DEFAULT NULL\n" +
                 "\n" +
                 ");";
         String query3="CREATE TABLE IF NOT EXISTS `expense` (\n" +
-                "  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+                "  `date` date NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
                 "  `category` int(20) NOT NULL,\n" +
                 "  `expense` int(11) DEFAULT NULL\n" +
                 ");";
         String query4="CREATE TABLE IF NOT EXISTS `income` (\n" +
-                "  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
+                "  `date` date NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
                 "  `category` int(20) NOT NULL,\n" +
                 "  `income` int(11) DEFAULT NULL\n" +
                 ");";

@@ -13,11 +13,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
-    Expense ex;
     EditText editAmount,editIncome;
     Button btnAddData;
     Button btnGoto;
-    Button btnViewIncome;
+    Button btntest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,28 +28,15 @@ public class MainActivity extends AppCompatActivity {
        // editIncome = (EditText) findViewById(R.id.editIncome);
         btnAddData = (Button) findViewById(R.id.updateBtn);
         btnGoto = (Button) findViewById(R.id.buttonshift);
+        btntest =(Button) findViewById(R.id.viewAll);
        // btnViewExpense = (Button) findViewById(R.id.viewExpense);
         //btnViewIncome = (Button) findViewById(R.id.viewIncome);
-
-        AddExpense();
+        submit();
         gotoExpense();
         //viewAll();
     }
 
-    public void AddExpense() {
-        btnAddData.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean isInserted = myDb.insertData("expense", "2011-10-05", 2, Integer.parseInt(editAmount.getText().toString()));
-                        if (isInserted = true)
-                            Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(MainActivity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
-                    }
-                }
-        );
-    }
+
 
     public void gotoExpense(){
         btnGoto.setOnClickListener(
@@ -58,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        Intent i = new Intent(getApplicationContext(),Expense.class);
+                        Intent i = new Intent(getApplicationContext(), Expense.class);
                         startActivity(i);
 
                     }
@@ -66,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    public void submit()
+    {
+
+
+    }
     /*public void viewAll(){
         btnViewAll.setOnClickListener(
                 new View.OnClickListener() {
