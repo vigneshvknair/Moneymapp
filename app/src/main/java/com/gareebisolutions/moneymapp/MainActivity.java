@@ -3,6 +3,7 @@ package com.gareebisolutions.moneymapp;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,10 +15,10 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper myDb;
     EditText editAmount,editIncome;
-    Button btnAddData;
-    Button btnGoto;
+    Button btnViewExpense;
+    Button btnExpenseGoto;
     Button btntest;
-
+    Button btnIncomeGoto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,20 +27,23 @@ public class MainActivity extends AppCompatActivity {
 
        // editAmount = (EditText) findViewById(R.id.editAmount);
        // editIncome = (EditText) findViewById(R.id.editIncome);
-        btnAddData = (Button) findViewById(R.id.updateBtn);
-        btnGoto = (Button) findViewById(R.id.buttonshift);
-        btntest =(Button) findViewById(R.id.viewAll);
-       // btnViewExpense = (Button) findViewById(R.id.viewExpense);
+      //  btnAddData = (Button) findViewById(R.id.updateBtn);
+        btnExpenseGoto = (Button) findViewById(R.id.buttonexpense);
+        btnIncomeGoto = (Button) findViewById(R.id.buttonincome);
+
+      //  btntest =(Button) findViewById(R.id.viewAll);
+       btnViewExpense = (Button) findViewById(R.id.buttonexpenseview);
         //btnViewIncome = (Button) findViewById(R.id.viewIncome);
         submit();
         gotoExpense();
-        //viewAll();
+        gotoIncome();
+        viewAll();
     }
 
 
 
     public void gotoExpense(){
-        btnGoto.setOnClickListener(
+        btnExpenseGoto.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -52,36 +56,38 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    public void submit()
-    {
-
-
-    }
-    /*public void viewAll(){
-        btnViewAll.setOnClickListener(
+    public void gotoIncome(){
+        btnIncomeGoto.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Cursor res= myDb.getData();
-                        if(res.getCount()==0){
-                            showMessage("Error","Nodatafound");
-                            return;
-                        }
-                        StringBuffer buffer= new StringBuffer();
-                        while (res.moveToNext()){
-                            buffer.append("ID: "+ res.getString(0)+"\n");
-                            buffer.append("Name: "+ res.getString(1)+"\n");
-                            buffer.append("Surname: "+ res.getString(2)+"\n");
-                            buffer.append("Marks: "+ res.getString(3)+"\n\n");
-                        }
 
-                        showMessage("data",buffer.toString());
+                        Intent x = new Intent(getApplicationContext(), Income.class);
+                        startActivity(x);
 
                     }
                 }
         );
     }
-*/
+    public void submit()
+    {
+
+
+    }
+    public void viewAll(){
+        btnViewExpense.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent z = new Intent(getApplicationContext(), Viewer.class);
+                        startActivity(z);
+
+                    }
+                }
+        );
+    }
+
     public void showMessage(String title,String Message)
 
     {

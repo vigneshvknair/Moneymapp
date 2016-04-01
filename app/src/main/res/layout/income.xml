@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.gareebisolutions.Expense"
     android:fillViewport="false">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,10 +16,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <!-- TimePicker options -->
 
-
-        <!-- DatePicker Options -->
+        <!--include layout="@layout/menu"/>
+        <!- DatePicker Options -->
         <TextView
             android:id="@+id/date_textview"
             android:layout_width="wrap_content"
@@ -34,9 +34,10 @@
             android:layout_height="wrap_content"
             android:text="@string/pick_date"
             android:background="#26c6da"
-            android:layout_marginTop="23dp"
-            android:layout_below="@+id/spinner1"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="41dp"
+            android:layout_below="@+id/editAmt"
+            android:layout_alignLeft="@+id/expenseAdd"
+            android:layout_alignStart="@+id/expenseAdd" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -46,7 +47,7 @@
             android:id="@+id/editAmt"
             android:layout_below="@+id/textView4"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp" />
+            android:layout_marginTop="41dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -58,14 +59,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="23dp" />
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner1"
-            android:prompt="@string/country_prompt"
-            android:layout_below="@+id/editAmt"
-            android:layout_alignLeft="@+id/editAmt"
-            android:layout_alignStart="@+id/editAmt" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,12 +66,11 @@
             android:text="@string/enter"
             android:id="@+id/textView4"
             android:textSize="@dimen/text_size_large"
+            android:layout_marginTop="86dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="55dp" />
+            android:layout_centerHorizontal="true" />
 
 
 
     </RelativeLayout>
-
 </RelativeLayout>

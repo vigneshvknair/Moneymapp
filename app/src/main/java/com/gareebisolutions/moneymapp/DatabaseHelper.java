@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
-        SQLiteDatabase db = this.getWritableDatabase();
+       // SQLiteDatabase db = this.getWritableDatabase();
 
     }
 
@@ -37,12 +37,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ");";
         String query3="CREATE TABLE IF NOT EXISTS `expense` (\n" +
                 "  `date` date NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
-                "  `category` int(20) NOT NULL,\n" +
+                "  `category` varchar(255) NOT NULL,\n" +
                 "  `expense` int(11) DEFAULT NULL\n" +
                 ");";
         String query4="CREATE TABLE IF NOT EXISTS `income` (\n" +
                 "  `date` date NOT NULL DEFAULT CURRENT_TIMESTAMP,\n" +
-                "  `category` int(20) NOT NULL,\n" +
                 "  `income` int(11) DEFAULT NULL\n" +
                 ");";
         db.execSQL(query1);
@@ -56,11 +55,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String type,String date,Integer category,Integer value) {
+    public boolean insertData(String type,String date,String category,Integer value) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("date",date);
-        contentValues.put("category",category);
+        if(type.matches("expense"))
+        {
+            contentValues.put("category", category);
+        }
         contentValues.put(type,value);
         long result = db.insert(type,null ,contentValues);
         if(result == -1)
@@ -72,7 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getData(String type,String date1,String date2)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from " + type+"where date between '"+date1+"' AND '"+date2 +"'", null);
+        Cursor res = db.rawQuery("select * from "+type+" where date between '"+date1+"' AND '"+date2 +"'", null);
         return res;
     }
 }

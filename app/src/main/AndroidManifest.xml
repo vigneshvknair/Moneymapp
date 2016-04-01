@@ -19,12 +19,36 @@
         <activity android:name=".Expense"
             android:label="@string/Expenses">
 
+
             <intent-filter>
                 <action android:name="com.gareebisolutions.Expense" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
         </activity>
+        <activity android:name=".Income"
+            android:label="Income">
+
+
+            <intent-filter>
+                <action android:name="com.gareebisolutions.Income" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+        <activity android:name=".Viewer"
+            android:label="Viewer">
+
+
+            <intent-filter>
+                <action android:name="com.gareebisolutions.Viewer" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
+
+
 
 
     </application>
